@@ -1,0 +1,24 @@
+def increment_one(digits):
+    # Start from the least significant digit
+    n = len(digits)
+    carry = 1
+
+    for i in range(n - 1, -1, -1):
+        sum_result = digits[i] + carry
+
+        # Calculate the carry for the next iteration
+        carry = sum_result // 10
+
+        # Update the current digit
+        digits[i] = sum_result % 10
+
+    # If there is still a carry after the loop, insert it at the beginning of the array
+    if carry > 0:
+        digits.insert(0, carry)
+
+    return digits
+
+# Test Example 1
+digits = [1, 2, 3]
+result = increment_one(digits)
+print(result)  # Output: [1, 2, 4]

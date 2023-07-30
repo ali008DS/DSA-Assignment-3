@@ -1,0 +1,52 @@
+'''Question 2
+Given an array nums of n integers, return an array of all the unique quadruplets
+[nums[a], nums[b], nums[c], nums[d]] such that:
+           ● 0 <= a, b, c, d < n
+           ● a, b, c, and d are distinct.
+           ● nums[a] + nums[b] + nums[c] + nums[d] == target
+
+You may return the answer in any order.
+
+Example 1:
+Input: nums = [1,0,-1,0,-2,2], target = 0
+Output: [[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]'''
+def four_sum(nums, target):
+    n = len(nums)
+    nums.sort()  # Sorting the array to simplify the process
+
+    quadruplets = []
+
+    for a in range(n - 3):
+        if a > 0 and nums[a] == nums[a - 1]:
+            continue
+
+        for b in range(a + 1, n - 2):
+            if b > a + 1 and nums[b] == nums[b - 1]:
+                continue
+
+            c = b + 1
+            d = n - 1
+
+            while c < d:
+                total_sum = nums[a] + nums[b] + nums[c] + nums[d]
+
+                if total_sum == target:
+                    quadruplets.append([nums[a], nums[b], nums[c], nums[d]])
+                    while c < d and nums[c] == nums[c + 1]:
+                        c += 1
+                    while c < d and nums[d] == nums[d - 1]:
+                        d -= 1
+                    c += 1
+                    d -= 1
+                elif total_sum < target:
+                    c += 1
+                else:
+                    d -= 1
+
+    return quadruplets
+
+# Example usage:
+nums = [1, 0, -1, 0, -2, 2]
+target = 0
+print(four_sum(nums, target))
+[[-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]
